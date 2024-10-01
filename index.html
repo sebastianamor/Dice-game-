@@ -1,45 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advanced Dice Game</title>
+  <title>高度なダイスゲーム</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <header>
-    <h1>Advanced Dice Game</h1>
-    <button class="btn" id="rules-btn" type="button">Show rules</button>
+    <h1>高度なダイスゲーム</h1>
+    <button class="btn" id="rules-btn" type="button">ルールを表示</button>
     <div class="rules-container">
-      <h2>Rules</h2>
+      <h2>ルール</h2>
       <ul>
-        <li>There are total of six rounds</li>
-        <li>You can only roll the dice three times per round</li>
-        <li>To start the game, roll the dice</li>
-        <li>
-          Then, choose from one of the selected scores or roll the dice again
-        </li>
-        <li>
-          If you choose a selected score, then you will move to the next round
-        </li>
-        <li>
-          If you decline to choose a selected score, then you can roll the
-          dice again two more times
-        </li>
+        <li>合計6ラウンドがあります</li>
+        <li>1ラウンドにつき、3回だけサイコロを振ることができます</li>
+        <li>ゲームを開始するには、サイコロを振ります</li>
+        <li>次に、選択されたスコアから1つを選ぶか、再度サイコロを振ります</li>
+        <li>選択されたスコアを選ぶと、次のラウンドに進みます</li>
+        <li>選択されたスコアを選ばない場合は、さらに2回サイコロを振ることができます</li>
       </ul>
-      <h2 class="points">Points</h2>
+      <h2 class="points">得点</h2>
       <ul>
-        <li>Three of a kind: Sum of all five dice</li>
-        <li>Four of a kind: Sum of all five dice</li>
-        <li>Full house: Three of a kind and a pair - 25 points</li>
-        <li>
-          Small straight: Four of the dice have consecutive values - 30 points
-        </li>
-        <li>
-          Large straight: All five dice have consecutive values - 40 points
-        </li>
+        <li>スリーカード: 5個のサイコロの合計</li>
+        <li>フォーカード: 5個のサイコロの合計</li>
+        <li>フルハウス: スリーカードとペア - 25点</li>
+        <li>スモールストレート: 4個のサイコロが連続した値 - 30点</li>
+        <li>ラージストレート: 5個のサイコロが連続した値 - 40点</li>
       </ul>
     </div>
   </header>
@@ -55,48 +44,48 @@
       </div>
 
       <p class="rounds-text">
-        <strong>Rolls:</strong> <span id="current-round-rolls">0</span> |
-        <strong>Round:</strong> <span id="current-round">1</span>
+        <strong>振った回数:</strong> <span id="current-round-rolls">0</span> |
+        <strong>ラウンド:</strong> <span id="current-round">1</span>
       </p>
 
       <div id="score-options">
         <div>
           <input type="radio" name="score-options" id="three-of-a-kind" value="three-of-a-kind" disabled />
-          <label for="three-of-a-kind">Three of a kind<span></span></label>
+          <label for="three-of-a-kind">スリーカード<span></span></label>
         </div>
         <div>
           <input type="radio" name="score-options" id="four-of-a-kind" value="four-of-a-kind" disabled />
-          <label for="four-of-a-kind">Four of a kind<span></span></label>
+          <label for="four-of-a-kind">フォーカード<span></span></label>
         </div>
         <div>
           <input type="radio" name="score-options" id="full-house" value="full-house" disabled />
-          <label for="full-house">Full house<span></span></label>
+          <label for="full-house">フルハウス<span></span></label>
         </div>
         <div>
           <input type="radio" name="score-options" id="small-straight" value="small-straight" disabled />
-          <label for="small-straight">Small straight<span></span></label>
+          <label for="small-straight">スモールストレート<span></span></label>
         </div>
         <div>
           <input type="radio" name="score-options" id="large-straight" value="large-straight" disabled />
-          <label for="large-straight">Large straight<span></span></label>
+          <label for="large-straight">ラージストレート<span></span></label>
         </div>
 
         <div>
           <input type="radio" name="score-options" id="none" value="none" disabled />
-          <label for="none">None of the above<span></span></label>
+          <label for="none">上記のいずれでもない<span></span></label>
         </div>
       </div>
 
       <button class="btn" id="keep-score-btn" type="button">
-        Keep the above selected score
+        選択したスコアを保持する
       </button>
       <button class="btn" id="roll-dice-btn" type="button">
-        Roll the dice
+        サイコロを振る
       </button>
     </form>
 
     <div id="scores">
-      <h3>Score history (Total score: <span id="total-score">0</span>)</h3>
+      <h3>スコア履歴 (合計スコア: <span id="total-score">0</span>)</h3>
       <ol id="score-history"></ol>
     </div>
   </main>
