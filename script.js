@@ -37,7 +37,7 @@ const updateStats = () => {
 const updateRadioOption = (index, score) => {
   scoreInputs[index].disabled = false;
   scoreInputs[index].value = score;
-  scoreSpans[index].textContent = `, score = ${score}`;
+  scoreSpans[index].textContent = `、スコア = ${score}`;
 };
 
 const updateScore = (selectedValue, achieved) => {
@@ -129,84 +129,82 @@ const resetGame = () => {
 
   resetRadioOptions();
 };
+
 const checkForStraights = (arr) => {
-    const counts = {};
-  
-    for (const num of arr) {
-      counts[num] = counts[num] ? counts[num] + 1 : 1;
-    }
-     const  keys = Object.keys(counts).join('')
-  
-       if (keys === '12345' || keys === '23456' ){
-         updateRadioOption(4,40);
-       }
-       if (keys.slice(0,4) === '1234' || keys.slice(0,4) === '2345'||
-           keys.slice(1,5) === '2345' || keys.slice(1,5) === '2345'){
-             updateRadioOption(3,30);
-           }
-  
-      updateRadioOption(5,0);
-      console.log(keys)
-  };
-  
-     let array = [1,5,4,3,2,3];
-     let array2 = [1,2,4,3,6,3];
-     checkForStraights(array)
-        checkForStraights(array2)
-  
-  
-  
-  rollDiceBtn.addEventListener("click", () => {
-    if (rolls === 3) {
-      alert("You have made three rolls this round. Please select a score.");
-    } else {
-      rolls++;
-      resetRadioOptions();
-      rollDice();
-      updateStats();
-      getHighestDuplicates(diceValuesArr);
-      detectFullHouse(diceValuesArr);
-  
-    }
-  });
-  
+  const counts = {};
+
+  for (const num of arr) {
+    counts[num] = counts[num] ? counts[num] + 1 : 1;
+  }
+  const keys = Object.keys(counts).join('');
+
+  if (keys === '12345' || keys === '23456') {
+    updateRadioOption(4, 40);
+  }
+  if (keys.slice(0, 4) === '1234' || keys.slice(0, 4) === '2345' ||
+      keys.slice(1, 5) === '2345' || keys.slice(1, 5) === '2345') {
+    updateRadioOption(3, 30);
+  }
+
+  updateRadioOption(5, 0);
+  console.log(keys);
+};
+
+let array = [1, 5, 4, 3, 2, 3];
+let array2 = [1, 2, 4, 3, 6, 3];
+checkForStraights(array);
+checkForStraights(array2);
+
+rollDiceBtn.addEventListener("click", () => {
+  if (rolls === 3) {
+    alert("このラウンドではすでに3回サイコロを振っています。スコアを選択してください。");
+  } else {
+    rolls++;
+    resetRadioOptions();
+    rollDice();
+    updateStats();
+    getHighestDuplicates(diceValuesArr);
+    detectFullHouse(diceValuesArr);
+  }
+});
+
 rulesBtn.addEventListener("click", () => {
-    isModalShowing = !isModalShowing;
-  
-    if (isModalShowing) {
-      rulesBtn.textContent = "Hide rules";
-      rulesContainer.style.display = "block";
-    } else {
-      rulesBtn.textContent = "Show rules";
-      rulesContainer.style.display = "none";
+  isModalShowing = !isModalShowing;
+
+  if (isModalShowing) {
+    rulesBtn.textContent = "ルールを非表示";
+    rulesContainer.style.display = "block";
+  } else {
+    rulesBtn.textContent = "ルールを表示";
+    rulesContainer.style.display = "none";
+  }
+});
+
+keepScoreBtn.addEventListener("click", () => {
+  let selectedValue;
+  let achieved;
+
+  for (const radioButton of scoreInputs) {
+    if (radioButton.checked) {
+      selectedValue = radioButton.value;
+      achieved = radioButton.id;
+      break;
     }
-  });
-  
-  keepScoreBtn.addEventListener("click", () => {
-    let selectedValue;
-    let achieved;
-  
-    for (const radioButton of scoreInputs) {
-      if (radioButton.checked) {
-        selectedValue = radioButton.value;
-        achieved = radioButton.id;
-        break;
-      }
+  }
+
+  if (selectedValue) {
+    rolls = 0;
+    round++;
+    updateStats();
+    resetRadioOptions();
+    updateScore(selectedValue, achieved);
+    if (round > 6) {
+      setTimeout(() => {
+        alert(`ゲーム終了！合計スコアは ${score} です`);
+        resetGame();
+      }, 500);
     }
-  
-    if (selectedValue) {
-      rolls = 0;
-      round++;
-      updateStats();
-      resetRadioOptions();
-      updateScore(selectedValue, achieved);
-      if (round > 6) {
-        setTimeout(() => {
-          alert(`Game Over! Your total score is ${score}`);
-          resetGame();
-        }, 500);
-      }
-    } else {
-      alert("Please select an option or roll the dice");
-    }
-  });
+  } else {
+    alert("オプションを選択するか、サイコロを振ってください");
+  }
+});
